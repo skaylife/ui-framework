@@ -40,6 +40,8 @@
 
 <script>
 
+//###########################################
+
     const state = {
             //Создание массива с времнем
         time: new Date(),
@@ -65,65 +67,103 @@
         ]
     }
 
+//###########################################
 
-    const app = document.createElement('div')
-    app.className = 'app'
+    function App () {
+        const app = document.createElement('div')
+        app.className = 'app'
 
+        app.append(Header())
+        app.append(Clock({time: state.time}))
+        app.append(Lots({lots: state.lots}))
 
+        return app
+    }
+
+//###########################################
+    
     //Создание Header'a 
-    const header = document.createElement('header')
-    header.className = 'header'
+    function Header () {
+        const header = document.createElement('header')
+        header.className = 'header'
+        header.append(logo())
+        return header
+    }
 
     //Создание лого
-    const logo = document.createElement('img')
-    logo.classList.add('logo')
-    logo.src = 'logo.png'
+    function logo () {
+        const logo = document.createElement('img')
+        logo.classList.add('logo')
+        logo.src = 'logo.png'
+        return logo 
+    }
+
 
     //Добавление в тэг header - logo
-    header.append(logo)
 
-    app.append(header)
+
 
     //Создание элеменета div для часов
-    const clock = document.createElement('div')
-    clock.className = 'clock'
-    //Вставка часов в div с часами
-    clock.innerText = state.time.toLocaleTimeString()
+    function Clock({time}) {
+        const clock = document.createElement('div')
+        clock.className = 'clock'
+        //Вставка часов в div с часами
+        clock.innerText = time.toLocaleTimeString()  
+        return clock
+    }
 
-    app.append(clock)
-    
-    const lots = document.createElement('div')
-    lots.className = 'lots'
 
-    state.lots.forEach((lot) => {
+    function Lots ({lots}) {
+
+        const list = document.createElement('div')
+        list.className = 'lots'
+
+        lots.forEach((lot) => {
+            list.append(Lot({
+                lot
+            }))
+        })
+
+        return list
+
+    }
+
+    function Lot ({lot}) {
+
         const node = document.createElement('article')
-        node.className = 'lot'
+            node.className = 'lot'
 
-        const price = document.createElement('div')
-        price.className = 'price'
-        price.innerText = lot.price
-        node.append(price)
+            const price = document.createElement('div')
+            price.className = 'price'
+            price.innerText = lot.price
+            node.append(price)
 
-        const name = document.createElement('h1')
-        name.innerText = lot.name
-        node.append(name)
+            const name = document.createElement('h1')
+            name.innerText = lot.name
+            node.append(name)
 
-        const description = document.createElement('p')
-        description.innerText = lot.description
-        node.append(description)
+            const description = document.createElement('p')
+            description.innerText = lot.description
+            node.append(description)
 
-        lots.append(node)
-    })
+            return node
 
-    app.append(lots)
+    }
 
-    //Создание элемнта Root для добавление туда всех конструкций
-    const domRoot = document.getElementById('root')
+//###########################################
+
+    render(
+        App({state}),
+        document.getElementById('root')
+    )
 
     //Добавление в массив domRoot выше созданных переменых
 
-    domRoot.append(app)
+    function render (newDom, realDomRoot) {
+        realDomRoot.append(newDom)
+    }
 
+//###########################################
 </script>
     
 </body>
