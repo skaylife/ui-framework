@@ -231,6 +231,19 @@ api.get('/lots').then((lots) => {
         lots
     }
     renderViev(state)
+
+    setInterval(() => {
+        state = {
+            ...state, 
+            lots: state.lots.map((lot) => {
+                return {
+                    ...lot,
+                    price: Math.round((Math.random() * 30 + 30))
+                }
+            })
+        }
+        renderViev(state)
+    }, 500)
  })
 
 //###########################################
