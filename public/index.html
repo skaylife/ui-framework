@@ -42,6 +42,42 @@
 
 //###########################################
 
+const api = {
+    get (url) {
+        switch (url) {
+            case '/lots':
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve([
+                            {
+                                id: 1,
+                                name: 'Apple',
+                                description: 'Apple description',
+                                price: 16
+                            },
+                            {
+                                id: 2,
+                                name: 'Orange',
+                                description: 'Orange description',
+                                price: 18
+                            },
+                            {
+                                id: 3,
+                                name: 'Potato',
+                                description: 'Potato description',
+                                price: 21
+                            },
+                        ])
+                    }, 1000)
+                })
+                default: 
+                    throw new Error('Unknow addres')
+        }
+    }
+}
+
+//###########################################
+
     let state = {
             //Создание массива с времнем
         time: new Date(),
@@ -189,6 +225,13 @@ setInterval(() => {
 
 }, 1000)
 
+api.get('/lots').then((lots) => {
+    state = {
+        ...state,
+        lots
+    }
+    renderViev(state)
+ })
 
 //###########################################
 
