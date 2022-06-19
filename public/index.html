@@ -42,7 +42,7 @@
 
 //###########################################
 
-    const state = {
+    let state = {
             //Создание массива с времнем
         time: new Date(),
         lots: [
@@ -172,17 +172,20 @@
 
 
 setInterval(() => {
-    state.time = new Date()
 
     // const clock = document.getElementsByClassName('clock').item(0) // Alt versin old 
     // const clock = document.getElementById('root').getElementsByClassName('clock').item(0) // Alt versin old 
-  
-    const root = document.getElementById('root')
-    const app = root.querySelector('.app')
 
-    const newApp = App ({ state })
+    state = {
+        ...state,
+        time: new Date()
+    }
 
-    root.replaceChild(newApp, app)
+    render(
+        App({state}),
+        document.getElementById('root')
+    )
+
 }, 1000)
 
 
