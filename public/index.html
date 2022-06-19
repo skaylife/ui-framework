@@ -45,26 +45,7 @@
     let state = {
             //Создание массива с времнем
         time: new Date(),
-        lots: [
-            {
-                id: 1,
-                name: 'Apple',
-                description: 'Apple description',
-                price: 16
-            },
-            {
-                id: 2,
-                name: 'Orange',
-                description: 'Orange description',
-                price: 18
-            },
-            {
-                id: 3,
-                name: 'Potato',
-                description: 'Potato description',
-                price: 21
-            },
-        ]
+        lots: null
     }
 
 //###########################################
@@ -130,8 +111,21 @@
         return node
     }
 
+    // Создание заглушки до загрузки компанента 
+    function Loading () {
+        const node = document.createElement('div')
+        node.className = 'loading'
+        node.innerHTML = 'Loading...'
+        return node
+    }
+
+    // Создание лотов с товаром
 
     function Lots ({lots}) {
+ 
+        if (lots === null) {
+            return Loading()
+        }
 
         const list = document.createElement('div')
         list.className = 'lots'
@@ -169,14 +163,14 @@
     }
 //###########################################
 
-// function renderViev (state) {
-//     render(
-//         App({state}),
-//         document.getElementById('root')
-//     )
-// }
+function renderViev (state) {
+    render(
+        App({state}),
+        document.getElementById('root')
+    )
+}
 
-// renderViev(state)
+renderViev(state)
 
 //###########################################
 
@@ -191,10 +185,7 @@ setInterval(() => {
         time: new Date()
     }
 
-    render(
-        App({state}),
-        document.getElementById('root')
-    )
+    renderViev(state)
 
 }, 1000)
 
