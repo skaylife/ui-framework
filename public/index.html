@@ -313,30 +313,53 @@ api.get('/lots').then((lots) => {
             realNode.nodeValue = virtualNode.nodeValue
         }
 
-        // Очистка реальной ноды
-
-        realNode.innerHTML = ''
 
         // Синхронизация моделей детей nodes
 
         const virtualChildren = virtualNode.childNodes
+        const realChildren = realNode.childNodes
 
-        for (let i = 0; i < virtualChildren.length; i++) {
+        for (let i = 0; i < virtualChildren.length || i < realChildren; i++) {
             const virtual = virtualChildren[i]
+            const real = realChildren[i]
+       
 
-            let newReal
-            if (virtual.nodeType === Node.TEXT_NODE) {
-                newReal = document.createTextNode('')
-            } else {
-                newReal = document.createElement(virtual.tagName)
+        // Операция в виртуальным домом virtualDom
+
+            // Удаление 
+            if (virtual === undefined && real !== undefined) {
+                realNode.remove(real)
             }
 
-            sync(virtual, newReal)
+            // Обновление 
+            if (virtual !== undefined && real !== undefined && virtual.tagName === real.tagName) {
+                sync(virtual, real)
+            }
 
-            realNode.appendChild(newReal)
+            // Замена, елси тэги различаются 
+            if (virtual !== undefined && real !== undefined && virtual.tagName !== real.tagName) {
+                const newReal = createRealNodeByVirtual(virtual)
+                sync(virtual, newReal)
+                realNode.replaceChild(newReal, real)
+            }
+
+            // Добавление элементов 
+            if (virtual !== undefined && real === undefined) {
+                const newReal = createRealNodeByVirtual(virtual)
+                sync(virtual, newReal)
+                realNode.appendChild(newReal)
+            }          
         }
-
     }
+
+
+function createRealNodeByVirtual(virtual) {
+    if (virtual.nodeType === Node.TEXT_NODE) {
+        return document.createTextNode('')
+    } 
+    return document.createElement(virtual.tagName)
+
+}
 
 //###########################################
 </script>
