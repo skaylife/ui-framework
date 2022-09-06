@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo UI</title>
+</head>
+<body>
+    
+<!-- <div class="app">
+    <header class="header">
+        <img class="logo" src="logo.png" alt="">
+    </header>
+
+    <div class="clock">
+        11:11:12 PM
+    </div>
+
+    <div class="lots">
+
+        <article class="lot">
+            <div class="price">16</div>
+            <h1>Apple</h1>
+            <p>Applle description</p>
+        </article>
+
+        <article class="lot">
+            <div class="price">20</div>
+            <h1>Orange</h1>
+            <p>Orange description</p>
+        </article>
+
+    </div>
+
+</div> -->
+
+<div id="root"></div>
+
+<script>
+
+const header = document.createElement('header')
+header.className = 'header'
+
+const logo = document.createElement('img')
+logo.className = 'logo'
+logo.src = 'logo.png'
+
+header.append(logo)
+
+const time = new Date()
+
+const clock = document.createElement('div')
+clock.className = 'clock'
+clock.innerText = time.toLocaleTimeString()
+
+const domRoot = document.getElementById('root')
+
+domRoot.append(header)
+domRoot.append(clock)
+
+</script>
+
+</body>
+
+</html>

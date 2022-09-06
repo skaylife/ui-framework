@@ -126,10 +126,16 @@ const stream = {
 
     //Создание лого
     function logo () {
-        const logo = document.createElement('img')
-        logo.classList.add('logo')
-        logo.src = 'logo.png'
-        return logo 
+
+        return {
+            tag: 'img',
+            attributes: {
+                className: 'logo',
+                src: 'logo.png'
+            },
+            children: []
+        }
+        // alt version | return new Element('img', { className: 'logo', src: 'logo.png'})
     }
 
 
@@ -197,6 +203,7 @@ const stream = {
 
         const node = document.createElement('article')
             node.className = 'lot'
+            node.dataset.key = lot.id
 
             const price = document.createElement('div')
             price.className = 'price'
