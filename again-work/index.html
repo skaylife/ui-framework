@@ -58,69 +58,81 @@ const state = {
     ]
 }
 
-const app = document.createElement('div')
-app.classList = 'app'
+function App ({ state }) {
+    const app = document.createElement('div')
+    app.classList = 'app'
+    app.append(Header())
+    app.append(Clock({ time : state.time }))
+    app.append(Lots({ lots: state.lots }))
 
-const header = document.createElement('header')
-header.className = 'header'
-
-const logo = document.createElement('img')
-logo.className = 'logo'
-logo.src = 'logo.png'
-
-header.append(logo)
+    return app
+}
 
 
 
+function Header () {
+    const header = document.createElement('header')
+    header.className = 'header'
+    header.append(Logo())
+    return header
+}
 
-const clock = document.createElement('div')
-clock.className = 'clock'
-clock.innerText = state.time.toLocaleTimeString()
+function Logo () {
+    const logo = document.createElement('img')
+    logo.className = 'logo'
+    logo.src = 'logo.png'
+    return logo
+}
 
+function Clock ({ time }) {
+    const clock = document.createElement('div')
+    clock.className = 'clock'
+    clock.innerText = time.toLocaleTimeString()
+    return clock 
+}
 
-const lots = document.createElement('div')
-lots.className = 'lots'
+function Lots ({ lots }) {
+    const list = document.createElement('div')
+    list.className = 'lots'
 
-state.lots.forEach((lot) => {
-    console.log('Start')
+    lots.forEach((lot) => {
+        list.append(Lot({lot}))
+    })
+    return list
+}
+
+function Lot ( {lot} ) {
+    console.log(lot)
     const node = document.createElement('article')
     node.className = 'lot'
-
-    console.log('Lot', lot)
-    console.log('Node ', node)
 
     const price = document.createElement('div')
     price.className = 'price'
     price.innerText = lot.price
     node.append(price)
 
-    console.log('Price', price)
-
     const name = document.createElement('h1')
     name.innerText = lot.name
     node.append(name)
-
-    console.log('Node ', node)
-    console.log('Price', price)
 
     const description = document.createElement('p')
     description.innerText = lot.description
     node.append(description)
 
-    console.log('Description', description)
+    return node
+}
 
-    console.log('node finish', node)
+// #############################################
 
-    lots.append(node)
-})
+render(
+    App({state}),
+    document.getElementById('root')
+)
+// #############################################
 
-app.append(header)
-app.append(clock)
-app.append(lots)
-
-const domRoot = document.getElementById('root')
-domRoot.append(app)
-
+function render (newDom, realDomRoot) {
+    realDomRoot.append(newDom)
+}
 
 </script>
 
