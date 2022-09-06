@@ -40,6 +40,27 @@
 
 <script>
 
+const state = {
+    time: new Date(),
+    lots: [
+        {
+            id: 1,
+            name: 'Яблоки',
+            description: 'Яблоки описание',
+            price: 15
+        },
+        {
+            id: 2,
+            name: 'Груши',
+            description: 'Груши описание',
+            price: 16
+        }
+    ]
+}
+
+const app = document.createElement('div')
+app.classList = 'app'
+
 const header = document.createElement('header')
 header.className = 'header'
 
@@ -49,16 +70,57 @@ logo.src = 'logo.png'
 
 header.append(logo)
 
-const time = new Date()
+
+
 
 const clock = document.createElement('div')
 clock.className = 'clock'
-clock.innerText = time.toLocaleTimeString()
+clock.innerText = state.time.toLocaleTimeString()
+
+
+const lots = document.createElement('div')
+lots.className = 'lots'
+
+state.lots.forEach((lot) => {
+    console.log('Start')
+    const node = document.createElement('article')
+    node.className = 'lot'
+
+    console.log('Lot', lot)
+    console.log('Node ', node)
+
+    const price = document.createElement('div')
+    price.className = 'price'
+    price.innerText = lot.price
+    node.append(price)
+
+    console.log('Price', price)
+
+    const name = document.createElement('h1')
+    name.innerText = lot.name
+    node.append(name)
+
+    console.log('Node ', node)
+    console.log('Price', price)
+
+    const description = document.createElement('p')
+    description.innerText = lot.description
+    node.append(description)
+
+    console.log('Description', description)
+
+    console.log('node finish', node)
+
+    lots.append(node)
+})
+
+app.append(header)
+app.append(clock)
+app.append(lots)
 
 const domRoot = document.getElementById('root')
+domRoot.append(app)
 
-domRoot.append(header)
-domRoot.append(clock)
 
 </script>
 
