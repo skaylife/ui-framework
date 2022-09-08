@@ -127,14 +127,10 @@ const stream = {
     //Создание лого
     function logo () {
 
-        return {
-            tag: 'img',
-            attributes: {
-                className: 'logo',
-                src: 'logo.png'
-            },
-            children: []
-        }
+        const logo = document.createElement('img')
+        logo.classList.add('logo')
+        logo.src = 'logo.png'
+        return logo 
         // alt version | return new Element('img', { className: 'logo', src: 'logo.png'})
     }
 
